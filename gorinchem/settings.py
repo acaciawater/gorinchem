@@ -39,12 +39,12 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.gis',
     'bootstrap3',
-    'registration',
     'acacia',
     'acacia.data',
     'acacia.meetnet',
     'acacia.data.knmi',
     'gorinchem',
+    'registration',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -101,6 +101,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+EXPORT_URL = '/export/'
+EXPORT_ROOT = os.path.join(BASE_DIR, 'export')
+
 UPLOAD_DATAFILES = 'datafiles' 
 UPLOAD_THUMBNAILS = 'thumbnails' 
 UPLOAD_IMAGES = 'images' 
