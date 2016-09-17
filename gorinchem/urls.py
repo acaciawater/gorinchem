@@ -17,7 +17,8 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
-from views import HomeView
+from views import HomeView, UploadDoneView, UploadFileView
+from django.contrib.auth.decorators import login_required
 
 admin.autodiscover()
 
@@ -28,6 +29,8 @@ urlpatterns = patterns('delft.views',
     url(r'^net/', include('acacia.meetnet.urls',namespace='meetnet')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('registration.backends.default.urls')),    
+    url(r'^upload/(?P<id>\d+)/$', login_required(UploadFileView.as_view()), name='upload_files'),
+    url(r'^done/(?P<id>\d+)/$', login_required(UploadDoneView.as_view()), name='upload_done'),
 )
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -11,13 +11,20 @@
 <body>
 <div class = "container">
 <div class="alert alert-success">
-<p>Beste {{name}},</p>
+<p>Beste {{user.first_name|default:user.username}},</p>
 <p>
-De aangeboden MON files worden verwerkt. Wij sturen je een email zodra de verwerking gereed is. 
-Dit kan enkele minuten duren afhankelijk van het aantal bestanden.
+De aangeboden bestanden voor meetnet {{network}} worden nu verwerkt. Dit kan enkele minuten duren afhankelijk van de grootte en het aantal bestanden.
+<br>
+{% if user.email %}
+Wij sturen een email naar {{user.email}} zodra de verwerking gereed is. 
+{% else %}
+Wij kunnen geen email sturen met de resultaten van de verwerking van de bestanden omdat er geen email adres bij ons bekend is.
+{% endif %}
 </p>
+<p>
 Met vriendelijke groet,<br>
 Acacia Water    
+</p>
 </div>
 <a class="btn btn-default center" href="{% url 'home' %}">Sluiten</a>
 </div>

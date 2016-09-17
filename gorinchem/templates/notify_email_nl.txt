@@ -1,10 +1,16 @@
 Beste {{name}},
 
-De verwerking van de {{result|length}} aangeboden files is gereed.
-{% for key,val in result.items %}
+De verwerking van de aangeboden bestanden voor meetnet {{network}} is gereed.
+
+Samenvatting:
+Bestand			Resultaat{% for key,val in result.items %}
 {{key}}:	{{val}}
 {% endfor %}
 
-Met vriendelijke groet,
+Details:
+Tijd			Bericht{% for r in logrecords %}
+{{r.asctime|slice:":-4"}}	{{r.message}
+{% endfor %}
 
+Met vriendelijke groet,
 Acacia Water    

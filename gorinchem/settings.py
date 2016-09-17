@@ -150,6 +150,14 @@ LOGGING = {
             'backupCount': 0,
             'formatter': 'update'
         },
+        'upload': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOGGING_ROOT, 'upload.log'),
+            'maxBytes': 10000,
+            'backupCount': 0,
+            'formatter': 'default'
+        },
         'django': {
             'level': 'DEBUG',
             'class': 'logging.handlers.TimedRotatingFileHandler',
@@ -173,8 +181,18 @@ LOGGING = {
             'level': 'DEBUG',
             'propagate': True,
         },
-        'acacia.data': {
+        'acacia': {
             'handlers': ['file',],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'gorinchem': {
+            'handlers': ['file',],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'upload': {
+            'handlers': ['upload',],
             'level': 'DEBUG',
             'propagate': True,
         },
