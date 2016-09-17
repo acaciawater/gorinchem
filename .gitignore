@@ -55,6 +55,7 @@ local_settings.py
 secrets.py
 media/
 logs/
+export/
 
 # Flask stuff:
 instance/
