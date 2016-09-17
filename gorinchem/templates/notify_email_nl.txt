@@ -1,0 +1,10 @@
+Beste {{name}},
+
+De verwerking van de {{result|length}} aangeboden files is gereed.
+{% for key,val in result.items %}
+{{key}}:	{{val}}
+{% endfor %}
+
+Met vriendelijke groet,
+
+Acacia Water    

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+body {
+	font-family:Arial, Helvetica, sans-serif;
+	font-style:normal;
+	font-size: 11px;
+	color:navy;
+}
+table {
+	border-color: gray;
+}
+td, th {
+	align: left;
+}
+.ERROR {color: crimson;}
+.WARNING {color: darkorange;}
+.INFO {color: navy;}
+.DEBUG {color: darkgreen;}
+</style>
+</head>
+<body>
+<p>Beste {{name}},</p>
+<p>
+De verwerking van de {{result|length}} Mon bestanden voor meetnet {{network}} is gereed.
+</p>
+<h4>Samenvatting</h4>
+<table>
+<tr><th>Bestand</th><th>Resultaat</th></tr>
+{% for key,val in result.items %}
+	<tr><td>{{key}}</td><td>{{val}}</td></tr>
+{% endfor %}
+</table>
+<h4>Logboek</h4>
+<table>
+<tr><th>Klasse</th><th>Tijd</th><th>Bericht</th></tr>
+{% for r in logrecords %}<tr class="{{r.levelname}}"><td>{{r.levelname|lower|capfirst}}</td><td>{{r.asctime|slice:":-4"}}</td><td>{{r.message}}</td></tr>{% endfor %}
+</table>
+<br>
+<br>
+Met vriendelijke groet,<br>
+Acacia Water    
+</body>
+</html>
