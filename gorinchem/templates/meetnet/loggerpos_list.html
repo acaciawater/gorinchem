@@ -1,0 +1,38 @@
+{% extends 'bootbase.html' %}
+{% load staticfiles %}
+{% load l10n %}
+{% block title %}Grondwatermeetnet {{network.name}}{% endblock title %}
+{% block breadcrumbs %}{% endblock %}
+{% block brandname %}<div class="navbar-brand"><img style="margin-top: -7px;max-width: 100px;" src="/media/{{network.logo}}"/>Grondwatermeetnet {{network.name}}</div>{% endblock %}
+{% block content %}
+<div class='container-fluid'>
+	<h2>Datalogger installaties voor filter {{screen}}</h2>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Logger</th>
+				<th>Start</th>
+				<th>Stop</th>
+				<th>Referentie</th>
+				<th>Kabellengte</th>
+				<th>Barometer</th>
+				<th>Opmerkingen</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for pos in object_list %}
+			<tr>
+				<td>{{pos.logger}}</td>
+				<td>{{pos.start_date}}</td>
+				<td>{{pos.end_date}}</td>
+				<td>{{pos.refpnt}}</td>
+				<td>{{pos.depth}}</td>
+				<td>{{pos.baro}}</td>
+				<td>{{pos.remarks}}</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+</div>
+	
+{% endblock content %}
