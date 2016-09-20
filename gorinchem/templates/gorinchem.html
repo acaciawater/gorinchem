@@ -1,0 +1,7 @@
+{% extends 'network_detail.html' %}
+{% block buttons %}
+<button class = "btn" id="showlabels" onclick="showLabels()">Labels tonen</button>
+<button class = "btn" id="hidelabels" onclick="hideLabels()">Labels verbergen</button>
+<a href="{% url 'meetnet:email-network' object.id %}" class="btn pull-right" title="Alle tijdreeksen in netwerk downloaden" id="download">Downloaden</a>
+<a href="{% url 'upload_files' object.id %}" class="btn pull-right" title="Mon bestanden uploaden" id="upload">Uploaden</a>
+{% endblock buttons %}
