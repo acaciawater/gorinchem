@@ -4,7 +4,7 @@ Created on Sep 1, 2016
 @author: theo
 '''
 from acacia.meetnet.views import NetworkView
-from acacia.meetnet.models import Network
+from acacia.meetnet.models import Network, Well, Screen, LoggerPos
 from django.views.generic import FormView, TemplateView
 from forms import UploadFileForm
 import os,logging
@@ -12,11 +12,14 @@ from util import handle_uploaded_files
 from django.core.files.storage import default_storage
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
+from django.views.generic.list import ListView
+import acacia
 
 logger = logging.getLogger(__name__)
 
 class HomeView(NetworkView):
-    
+    template_name = 'gorinchem.html'
+
     def get_context_data(self, **kwargs):
         context = NetworkView.get_context_data(self, **kwargs)
         context['maptype'] = 'SATELLITE'
@@ -71,3 +74,20 @@ class UploadFileView(FormView):
         t.start()
         
         return super(UploadFileView,self).form_valid(form)
+
+class LoggerPosListView(ListView):
+    model = LoggerPos
+
+    def get_context_data(self, **kwargs):
+        context =  ListView.get_context_data(self, **kwargs)
+        pk = int(self.kwargs.get('pk'))
+        screen = get_object_or_404(Screen, pk=pk)
+        context['screen'] = screen
+        network = screen.well.network
+        context['network'] = network
+        return context
+    
+    def get_queryset(self):
+        pk = int(self.kwargs.get('pk'))
+        screen = get_object_or_404(Screen, pk=pk)
+        return screen.loggerpos_set.all()
