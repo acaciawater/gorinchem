@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
+import os, sys
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.sys.path.append('/home/theo/texelmeet/acaciadata')
@@ -166,6 +166,11 @@ LOGGING = {
             'interval': 1, # every day a new file
             'backupCount': 0,
         },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'stream': sys.stdout
+        },
     },
     'formatters': {
         'default': {
@@ -184,6 +189,11 @@ LOGGING = {
         'acacia': {
             'handlers': ['file',],
             'level': 'DEBUG',
+            'propagate': True,
+        },
+        'gorinchem.management': {
+            'handlers': ['console',],
+            'level': 'INFO',
             'propagate': True,
         },
         'gorinchem': {
