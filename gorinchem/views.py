@@ -1,39 +1,67 @@
 '''
-Created on Sep 1, 2016
+Created on Sep 1, 2019
 
 @author: theo
 '''
-from acacia.meetnet.views import NetworkView
-from acacia.meetnet.models import Network, Screen, LoggerPos
-import logging
-from django.shortcuts import get_object_or_404
-from django.views.generic.list import ListView
+import json
 
-logger = logging.getLogger(__name__)
+from django.conf import settings
+from django.http.response import JsonResponse, HttpResponseServerError
+from django.views.generic.detail import DetailView
+
+from acacia.meetnet.models import Network, Well
+from acacia.meetnet.views import NetworkView
+from django.utils import timezone
+
+def statuscolor(last):
+    """ returns color for bullets on home page.
+    Green is less than 1 day old, yellow is 1 - 2 days, red is 3 - 7 days and gray is more than one week old 
+     """
+    if last:
+        now = timezone.now()
+        age = now - last.date
+        if age.days < 1:
+            return 'green' 
+        elif age.days < 2:
+            return 'yellow'
+        elif age.days < 7:
+            return 'red' 
+    return 'grey'
 
 class HomeView(NetworkView):
+    template_name = 'gorinchem/home.html'
 
     def get_context_data(self, **kwargs):
         context = NetworkView.get_context_data(self, **kwargs)
-        context['maptype'] = 'SATELLITE'
-        return context
-    
-    def get_object(self):
-        return Network.objects.get(name = 'Gorinchem')
-    
-class LoggerPosListView(ListView):
-    model = LoggerPos
+        options = {
+            'center': [52.15478, 4.48565],
+            'zoom': 12 }
+        context['api_key'] = settings.GOOGLE_MAPS_API_KEY
+        context['options'] = json.dumps(options)
 
-    def get_context_data(self, **kwargs):
-        context =  ListView.get_context_data(self, **kwargs)
-        pk = int(self.kwargs.get('pk'))
-        screen = get_object_or_404(Screen, pk=pk)
-        context['screen'] = screen
-        network = screen.well.network
-        context['network'] = network
+        welldata = []
+        for w in Well.objects.order_by('name'):
+            last = w.last_measurement()
+            welldata.append((w,last,statuscolor(last)))
+        context['wells'] = welldata
         return context
+
+    def get_object(self):
+        return Network.objects.first()
+
+class PopupView(DetailView):
+    """ returns html response for leaflet popup """
+    model = Well
+    template_name = 'meetnet/well_info.html'
     
-    def get_queryset(self):
-        pk = int(self.kwargs.get('pk'))
-        screen = get_object_or_404(Screen, pk=pk)
-        return screen.loggerpos_set.all()
+def well_locations(request):
+    """ return json response with well locations
+    """
+    result = []
+    for p in Well.objects.all():
+        try:
+            pnt = p.location
+            result.append({'id': p.id, 'name': p.name, 'nitg': p.nitg, 'description': p.description, 'lon': pnt.x, 'lat': pnt.y})
+        except Exception as e:
+            return HttpResponseServerError(unicode(e))
+    return JsonResponse(result,safe=False)

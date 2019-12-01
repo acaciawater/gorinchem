@@ -50,12 +50,16 @@ coverage.xml
 *.pot
 
 # Django stuff:
+.settings/
 *.log
+*.sql
 local_settings.py
 secrets.py
 media/
 logs/
+static/
 export/
+acacia
 
 # Flask stuff:
 instance/
@@ -91,4 +95,4 @@ ENV/
 
 # Rope project settings
 .ropeproject
-/static/
+

@@ -1,0 +1,65 @@
+{% extends 'gorinchem/base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Monitoring network" %} {{object}} {% endblock %}
+{% block style %}
+{{ block.super }}
+<link rel="stylesheet" href="//unpkg.com/leaflet@1.4.0/dist/leaflet.css"/>
+<link rel="stylesheet" href="//unpkg.com/leaflet.markercluster@1.0.5/dist/MarkerCluster.css"/>
+<link rel="stylesheet" href="//unpkg.com/leaflet.markercluster@1.0.5/dist/MarkerCluster.Default.css"/>
+<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="/static/css/mapstor.css"/>
+<link rel="stylesheet" href="/static/css/leaflet.wmslegend.css"/>
+<style>
+li > a > img {
+  height: 2em;
+  padding-right: 1em;
+}
+</style>
+{% endblock %}
+{% block script %}
+{{ block.super }}
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?key={{api_key}}" async defer></script>
+<script type="text/javascript" src="//unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+<script type="text/javascript" src="//unpkg.com/leaflet.gridlayer.googlemutant@latest/Leaflet.GoogleMutant.js"></script>
+<script type="text/javascript" src="//unpkg.com/leaflet.markercluster@1.0.5/dist/leaflet.markercluster.js"></script>
+<script type="text/javascript" src="//unpkg.com/esri-leaflet@2.1.1/dist/esri-leaflet.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/static/js/betterwms.js"></script>
+<script type="text/javascript" src="/static/js/mwmaps.js"></script>
+<script type="text/javascript" src="/static/js/leaflet.wmslegend.js"></script>
+<script>
+
+$(function() {
+	initMap('map',{{options|safe}});
+ 	$("#list").height($("#map").height());
+ 	$("#list").sortable();
+});
+
+</script>
+{% endblock %}
+{% block content %}
+<div class="full adjust container-fluid">
+<div class="full row row-fluid">
+<div id="map" class="full col-sm-10"></div>
+{% block list %}
+<div id="list" class="list-group scroll col-sm-2">
+<a href="#" class="list-group-item active">{%trans "Wells"%}<span id="badge" title='{% trans "Number of wells" %}' class="badge">{{network.well_set.count}}</a>
+{% for well, last, color in wells %}
+<a 
+	class="list-group-item"
+	href="{% url 'meetnet:well-detail' well.id %}" 
+	onmouseover="showMarker({{well.id}});" 
+	onmouseout="hideMarker({{well.id}});"
+	{% if last %}
+		title="laatst gezien: {{last.date|date:"D d M Y"|default:"nooit"}} ({{last.date|timesince}} geleden)"
+	{% endif %}
+>
+<span><img class="bullet" src='/static/bullet_ball_{{color}}.png'></img>{{well.name}}</span>
+{% if well.straat %}<br/><div class='text-muted'><small>{{well.straat}}, {{well.plaats}}</small></div>{% endif %}
+</a>
+{% endfor %}
+</div>
+{% endblock list %}
+</div>
+</div>
+{% endblock %}

@@ -12,9 +12,9 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os, sys
+from django.utils.translation import ugettext_lazy as _
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-os.sys.path.append('/home/theo/texelmeet/acaciadata')
 
 SITE_ID = 1
 
@@ -38,25 +38,31 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
+    'corsheaders',
+    'debug_toolbar',
     'bootstrap3',
-    'acacia',
+    'gorinchem.apps.Config',
     'acacia.data',
     'acacia.meetnet',
+    'acacia.meetnet.bro',
     'acacia.data.knmi',
-    'gorinchem',
+    'acacia.ahn',
+    'acacia',
+    'acacia.validation',
     'registration',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-)
+]
 
 ROOT_URLCONF = 'gorinchem.urls'
 
@@ -78,11 +84,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'gorinchem.wsgi.application'
 
+LANGUAGE_CODE = 'nl'
 
-# Internationalization
-# https://docs.djangoproject.com/en/1.8/topics/i18n/
-
-LANGUAGE_CODE = 'nl-nl'
+LANGUAGES = [
+    ('nl',_('Dutch')),
+    ('en',_('English'))
+]
 
 TIME_ZONE = 'Europe/Amsterdam'
 
@@ -114,18 +121,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # Grapelli admin
 GRAPPELLI_ADMIN_TITLE='Beheer van grondwatermeetnet Gorinchem'
 
-# Celery stuff
-#BROKER_URL = 'django://'
-#CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
-#INSTALLED_APPS += ('kombu.transport.django','djcelery',)                  
-
-#CELERY_ALWAYS_EAGER = DEBUG
-
 # registration stuff
 ACCOUNT_ACTIVATION_DAYS = 7
 LOGIN_REDIRECT_URL = '/data/'
 
 LOGGING_ROOT = os.path.join(BASE_DIR, 'logs')
+LOGGING_URL = '/logs/'
 
 # Logging
 LOGGING = {
@@ -158,6 +159,10 @@ LOGGING = {
             'backupCount': 0,
             'formatter': 'default'
         },
+        'console': {
+            'class': 'logging.StreamHandler',
+            'stream': sys.stdout,
+        },
         'django': {
             'level': 'DEBUG',
             'class': 'logging.handlers.TimedRotatingFileHandler',
@@ -165,11 +170,6 @@ LOGGING = {
             'when': 'D',
             'interval': 1, # every day a new file
             'backupCount': 0,
-        },
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'stream': sys.stdout
         },
     },
     'formatters': {
@@ -193,8 +193,13 @@ LOGGING = {
         },
         'gorinchem.management': {
             'handlers': ['console',],
-            'level': 'INFO',
-            'propagate': True,
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'acacia.meetnet.management': {
+            'handlers': ['console',],
+            'level': 'DEBUG',
+            'propagate': False,
         },
         'gorinchem': {
             'handlers': ['file',],
