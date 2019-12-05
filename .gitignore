@@ -57,7 +57,8 @@ local_settings.py
 secrets.py
 media/
 logs/
-export/
+/static/
+/export/
 acacia
 
 # Flask stuff:
