@@ -103,7 +103,9 @@ window.cookieconsent.initialise({
 		          <ul class="dropdown-menu">
 		        {% if user.is_staff %}
 		            <li><a href="{% block admin_url %}/admin/meetnet{% endblock admin_url %}">{% trans "Admin page" %}</a></li>
-		            <li><a href="{% url 'bro:gmw' %}"">{% trans "BRO registratie" %}</a></li>
+		            {% if object.bro %}
+		            <li><a href="{% url 'bro:defaults' object.bro.pk %}?next={% url 'bro:gmw'%}">{% trans "BRO registratie" %}</a></li>
+		            {% endif %}
 		            <li><a href="/admin/meetnet/handpeilingen">{% trans "Manual measurements" %}</a></li>
 		            <li><a href="{% url 'meetnet:upload-files' object.id %}">{% trans "Upload files" %}</a></li>
 		            <li><a href="{% url 'meetnet:upload-metadata' %}">{% trans "Upload Excel with metadata" %}</a></li>
