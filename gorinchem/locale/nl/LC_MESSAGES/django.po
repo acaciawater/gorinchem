@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-22 11:09+0100\n"
+"POT-Creation-Date: 2019-12-17 13:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,65 +18,65 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: settings.py:97
+#: gorinchem/settings.py:90
 msgid "Dutch"
 msgstr "Nederlands"
 
-#: settings.py:98
+#: gorinchem/settings.py:91
 msgid "English"
 msgstr "Engels"
 
-#: templates/duivenvoorde/base.html:90
-#: templates/duivenvoorde/home.html:3
+#: gorinchem/templates/gorinchem/base.html:90
+#: gorinchem/templates/gorinchem/home.html:3
 msgid "Monitoring network"
 msgstr "Meetnet"
 
-#: templates/duivenvoorde/base.html:101
+#: gorinchem/templates/gorinchem/base.html:101
 msgid "Admin"
 msgstr "Beheer"
 
-#: templates/duivenvoorde/base.html:105
+#: gorinchem/templates/gorinchem/base.html:105
 msgid "Admin page"
 msgstr "Beheer pagina"
 
-#: templates/duivenvoorde/base.html:106
+#: gorinchem/templates/gorinchem/base.html:106
 msgid "BRO registratie"
 msgstr "BRO registraties downloaden"
 
-#: templates/duivenvoorde/base.html:107
+#: gorinchem/templates/gorinchem/base.html:107
 msgid "Manual measurements"
 msgstr "Handpeilingen bewerken"
 
-#: templates/duivenvoorde/base.html:108
+#: gorinchem/templates/gorinchem/base.html:108
 msgid "Upload files"
 msgstr "Standen uploaden"
 
-#: templates/duivenvoorde/base.html:109
+#: gorinchem/templates/gorinchem/base.html:109
 msgid "Upload Excel with metadata"
 msgstr "Metadata bijwerken (Excel)"
 
-#: templates/duivenvoorde/base.html:111
-#: templates/duivenvoorde/base.html:137
+#: gorinchem/templates/gorinchem/base.html:111
+#: gorinchem/templates/gorinchem/base.html:137
 msgid "Download files"
 msgstr "Standen downloaden"
 
-#: templates/duivenvoorde/base.html:118
+#: gorinchem/templates/gorinchem/base.html:118
 msgid "Log out"
 msgstr "Uitloggen"
 
-#: templates/duivenvoorde/base.html:119
+#: gorinchem/templates/gorinchem/base.html:119
 msgid "Change password"
 msgstr "Wachtwoord veranderen"
 
-#: templates/duivenvoorde/base.html:123
+#: gorinchem/templates/gorinchem/base.html:123
 msgid "Log in"
 msgstr "Inloggen"
 
-#: templates/duivenvoorde/base.html:141
+#: gorinchem/templates/gorinchem/base.html:141
 msgid "Dear"
 msgstr "Beste"
 
-#: templates/duivenvoorde/base.html:145
+#: gorinchem/templates/gorinchem/base.html:145
 #, python-format
 msgid ""
 "\n"
@@ -85,20 +85,20 @@ msgid ""
 "\t\t\t\tWe will send an email with a download link to %(email)s when the "
 "files are ready for download.\n"
 "\t\t\t\t"
-msgstr "\n"
+msgstr ""
+"\n"
 "Klik CSV of NITG om alle tijdreeksen uit het meetnet %(object)s te "
 "downloaden.<br>We sturen een email naar %(email)s als de tijdreeksen gereed "
 "zijn."
 
-#: templates/duivenvoorde/base.html:155
+#: gorinchem/templates/gorinchem/base.html:155
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: templates/duivenvoorde/home.html:46
+#: gorinchem/templates/gorinchem/home.html:46
 msgid "Wells"
 msgstr "Putten"
 
-#: templates/duivenvoorde/home.html:46
+#: gorinchem/templates/gorinchem/home.html:46
 msgid "Number of wells"
 msgstr "Aantal putten"
-
