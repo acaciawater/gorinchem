@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^bro/',include('acacia.meetnet.bro.urls',namespace='bro')),
     url(r'^locs/',well_locations,name='locs'),
     url(r'^pop/(?P<pk>\d+)', PopupView.as_view()),
+    url(r'^api/v1/', include('acacia.meetnet.api.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('registration.backends.hmac.urls')),
 ]
