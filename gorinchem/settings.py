@@ -24,7 +24,9 @@ SITE_ID = 1
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.acaciadata.com', 'localhost']
+# ALLOWED_HOSTS = ['.acaciadata.com', 'localhost']
+ALLOWED_HOSTS = ['*'] # uses FilterHostMiddleware
+FILTER_HOSTS = ['127.0.0.1','localhost','192\.168\.1','10.0.2.']
 
 # Application definition
 INSTALLED_APPS = (
@@ -65,6 +67,7 @@ REST_FRAMEWORK = {
 }
 
 MIDDLEWARE = [
+    'acacia.middleware.FilterHostMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
