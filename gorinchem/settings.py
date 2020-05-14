@@ -26,7 +26,7 @@ DEBUG = True
 
 # ALLOWED_HOSTS = ['.acaciadata.com', 'localhost']
 ALLOWED_HOSTS = ['*'] # uses FilterHostMiddleware
-FILTER_HOSTS = ['127.0.0.1','localhost','192\.168\.1','10.0.2.']
+FILTER_HOSTS = ['127.0.0.1','localhost','192.168.1.','10.0.2.','acaciadata.com']
 
 # Application definition
 INSTALLED_APPS = (
